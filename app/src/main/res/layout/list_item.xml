@@ -26,7 +26,7 @@
 
                 <TextView
                     android:id="@+id/title"
-                    android:layout_width="@dimen/_230sdp"
+                    android:layout_width="@dimen/_80sdp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
@@ -66,7 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="date"
-                android:textSize="@dimen/_15sdp"
+                android:textSize="@dimen/_8sdp"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:gravity="right"
                 android:textColor="#ABABAB"

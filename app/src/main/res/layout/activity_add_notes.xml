@@ -44,8 +44,8 @@
         android:fontFamily="@font/poppins_semibold"
         android:hint="Title"
         android:textColor="@color/white"
-        android:textColorHint="@color/white"
         android:textSize="40dp"
+        android:textColorHint="#B2B1B1"
         android:textStyle="bold"></EditText>
 
     <EditText
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:hint="Description"
-        android:textColorHint="@color/white"
+        android:textColorHint="#B2B1B1"
         android:background="@color/black"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"

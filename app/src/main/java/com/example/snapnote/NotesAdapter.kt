@@ -18,6 +18,7 @@ RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
 
         val deleteIV=itemView.findViewById<ImageView>(R.id.delete)
         val noteTV=itemView.findViewById<TextView>(R.id.title)
+        val desTV=itemView.findViewById<TextView>(R.id.desciption)
         val timeTV=itemView.findViewById<TextView>(R.id.date)
     }
 
@@ -31,8 +32,10 @@ RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
         val currentNote = allNotes[position]
         holder.noteTV.text=currentNote.notTitle
 
-//        holder.des.text=currentNote.note
         holder.timeTV.text=currentNote.timestamp
+        holder.desTV.text=currentNote.noteDescription
+
+
 
 
         holder.deleteIV.setOnClickListener {

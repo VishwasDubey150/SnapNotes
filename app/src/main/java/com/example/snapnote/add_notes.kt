@@ -24,16 +24,15 @@ class add_notes : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        viewModel= ViewModelProvider(this,
+        viewModel = ViewModelProvider(this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)).get(NoteVIewModel::class.java)
 
         val noteType = intent.getStringExtra("noteType")
 
-        if(noteType.equals("Edit"))
-        {
+        if (noteType.equals("Edit")) {
             val noteTitle = intent.getStringExtra("noteTitle")
             val notedesc = intent.getStringExtra("noteDescription")
-            noteID=intent.getIntExtra("noteID",-1)
+            noteID = intent.getIntExtra("noteID", -1)
             binding.etTitle.setText(noteTitle)
             binding.etDes.setText(notedesc)
 
@@ -42,21 +41,27 @@ class add_notes : AppCompatActivity() {
             val note_title = binding.etTitle.text.toString()
             val note_desc = binding.etDes.text.toString()
 
-            if (title.isNotEmpty() || note_desc.isNotEmpty()) {
+            if (title.isNotEmpty() && note_desc.isNotEmpty()) {
                 val sdf = SimpleDateFormat("dd MMM, yyyy -HH:mm ")
 
                 val currentDate: String = sdf.format(Date())
                 viewModel.addNote(Note(note_title, note_desc, currentDate))
-                Toast.makeText(this,"Note added..", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Note added..", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(applicationContext, MainActivity::class.java))
+                finish()
+                this
+            }
+            else{
+                Toast.makeText(this, "Enter Title and Description", Toast.LENGTH_SHORT).show()
             }
 
-            startActivity(Intent(applicationContext,MainActivity::class.java))
-            this
         }
+    }
+    fun back(view: View) {
+        startActivity(Intent(this@add_notes,MainActivity::class.java))
+        finish()
+    }
+    override fun onBackPressed() {
 
-
-        fun back(view: View) {
-            startActivity(Intent(this@add_notes,MainActivity::class.java))
-        }
     }
 }

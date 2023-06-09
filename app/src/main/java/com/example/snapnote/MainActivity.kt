@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AlphaAnimation
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -23,13 +24,12 @@ class MainActivity : AppCompatActivity(),NoteClickDeleteInterface, NoteClickInte
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+        binding.cv.visibility=View.GONE
 
         binding.rv.setHasFixedSize(true)
         binding.rv.layoutManager = StaggeredGridLayoutManager(2, LinearLayout.VERTICAL)
         adapter = NotesAdapter(this, this,this)
         binding.rv.adapter = adapter
-
-
 
         viewModel = ViewModelProvider(this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)).get(NoteVIewModel::class.java)
@@ -40,14 +40,25 @@ class MainActivity : AppCompatActivity(),NoteClickDeleteInterface, NoteClickInte
             }
         }
 
+
         database = NoteDatabase.getDatabase(this)
 
     }
 
 
     override fun onDeleteIconClick(note: Note) {
-        viewModel.deleteNote(note)
-        Toast.makeText(this,"Note Deleted..", Toast.LENGTH_SHORT).show()
+        setAnimation(binding.cv)
+        binding.cv.visibility=View.VISIBLE
+
+        binding.fDelete.setOnClickListener {
+            viewModel.deleteNote(note)
+            ngoneAnimation(note)
+            binding.cv.visibility=View.VISIBLE
+            binding.cv.visibility=View.GONE
+            goneAnimation(binding.cv)
+            Toast.makeText(this,"Note Deleted..", Toast.LENGTH_SHORT).show()
+
+        }
     }
 
     override fun onNoteClick(note: Note) {
@@ -63,5 +74,28 @@ class MainActivity : AppCompatActivity(),NoteClickDeleteInterface, NoteClickInte
     fun add(view: View) {
         startActivity(Intent(this@MainActivity,add_notes::class.java))
         finish()
+    }
+
+    fun cross(view: View) {
+        goneAnimation(binding.cv)
+        binding.cv.visibility=View.GONE
+    }
+    fun setAnimation(view: View)
+    {
+        val anim= AlphaAnimation(0.0f,1.0f)
+        anim.duration=200
+        view.startAnimation(anim)
+    }
+    fun goneAnimation(view: View)
+    {
+        val anim= AlphaAnimation(1.0f,0.0f)
+        anim.duration=200
+        view.startAnimation(anim)
+    }
+
+    fun ngoneAnimation(note: Note)
+    {
+        val anim= AlphaAnimation(1.0f,0.0f)
+        anim.duration=200
     }
 }
